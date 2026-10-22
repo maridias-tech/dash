@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #b56be4;
+            color: #370437;
+        }
+
+        /* Layout principal */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Menu lateral */
+        .sidebar {
+            width: 220px;
+            background-color: #6d276ddd;
+            color: white;
+            padding: 25px 15px;
+            flex-shrink: 0;
+        }
+
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #5a0f7d;
+        }
+
+        /* Conteúdo principal */
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 25px;
+        }
+
+        /* Cabeçalho */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+        }
+
+        .welcome {
+            background-color: #871ea1;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        /* Cartões: CSS Grid */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3b0245;
+            box-shadow: 0 2px 6px #00000010;
+        }
+
+        .card h3 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: #a547b5;
+        }
+
+        .card p {
+            font-size: 23px;
+            font-weight: bold;
+            color: #e580e0;
+        }
+
+        /* Área de gráficos e atividades */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px #00000010;
+            min-width: 0;
+        }
+
+        .panel h2 {
+            font-size: 19px;
+            margin-bottom: 20px;
+        }
+
+        /* Gráfico de vendas */
+        .chart {
+            height: 250px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: 12px;
+            padding: 15px 5px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%;
+            gap: 8px;
+        }
+
+        .bar {
+            width: 100%;
+            max-width: 45px;
+            background: linear-gradient(
+                to top,
+                #62026c,
+                #f580f1
+            );
+            border-radius: 5px 5px 0 0;
+        }
+
+        .month {
+            font-size: 12px;
+            padding-bottom: 8px;
+        }
+
+        /* Atividades recentes */
+        .activities {
+            list-style: none;
+        }
+
+        .activities li {
+            padding: 15px 0;
+            border-bottom: 1px solid #e5eeee;
+            font-size: 14px;
+        }
+
+        .activities li:last-child {
+            border-bottom: none;
+        }
+
+        /* Tablet */
+        @media (max-width: 1000px) {
+            .cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Celular */
+        @media (max-width: 600px) {
+            .dashboard {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .sidebar h2 {
+                margin-bottom: 15px;
+            }
+
+            .sidebar nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .sidebar a {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .card p {
+                font-size: 19px;
+            }
+
+            .panel {
+                padding: 15px;
+            }
+
+            .chart {
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- Menu lateral -->
+        <aside class="sidebar">
+            <h2>Meu Dashboard</h2>
+
+            <nav>
+                <a href="#inicio" class="active">Início</a>
+                <a href="#relatorios">Relatórios</a>
+                <a href="#usuarios">Usuários</a>
+                <a href="#configuracoes">Configurações</a>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo principal -->
+        <main class="main-content" id="inicio">
+
+            <header class="header">
+                <h1>Painel de Controle</h1>
+                <p class="welcome">Bem-vindo, usuário!</p>
+            </header>
+
+            <!-- Cartões de indicadores -->
+            <section class="cards" aria-label="Indicadores">
+                <article class="card">
+                    <h3>Vendas</h3>
+                    <p>R$ 12.500</p>
+                </article>
+
+                <article class="card">
+                    <h3>Usuários</h3>
+                    <p>1.250</p>
+                </article>
+
+                <article class="card">
+                    <h3>Pedidos</h3>
+                    <p>320</p>
+                </article>
+
+                <article class="card">
+                    <h3>Lucro</h3>
+                    <p>R$ 5.800</p>
+                </article>
+            </section>
+
+            <!-- Gráfico e atividades -->
+            <section class="content-grid">
+
+                <article class="panel" id="relatorios">
+                    <h2>Relatório de vendas</h2>
+
+                    <div
+                        class="chart"
+                        role="img"
+                        aria-label="Gráfico ilustrativo de vendas de janeiro a maio"
+                    >
+                        <div class="bar-group">
+                            <div class="bar" style="height: 40%;"></div>
+                            <span class="month">Jan</span>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar" style="height: 65%;"></div>
+                            <span class="month">Fev</span>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar" style="height: 50%;"></div>
+                            <span class="month">Mar</span>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar" style="height: 85%;"></div>
+                            <span class="month">Abr</span>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar" style="height: 60%;"></div>
+                            <span class="month">Mai</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="panel" id="usuarios">
+                    <h2>Atividades recentes</h2>
+
+                    <ul class="activities">
+                        <li>Venda realizada</li>
+                        <li>Novo usuário cadastrado</li>
+                        <li>Pedido enviado</li>
+                        <li>Pagamento recebido</li>
+                    </ul>
+                </article>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+</html>
